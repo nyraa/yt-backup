@@ -24,6 +24,7 @@ for section in config.sections():
     if section == 'DEFAULT':
         continue
 
+    print(f'Processing section: {section}')
     section_path = os.path.join(config[section]['store_path'], config[section]['folder_name'].format(section))
     os.makedirs(section_path, exist_ok=True)
 
