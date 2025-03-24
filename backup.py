@@ -44,8 +44,17 @@ for section in config.sections():
 
     # date_int: latest video release date (from config), str store to date_str
     date_int = int(date_str)
-    for entry in json_data['entries']:
 
+    # first level entries may contains many channel entries
+    entries = []
+    for entry in json_data['entries']:
+        # if entry is a channel, append all entries to entries
+        if 'entries' in entry:
+            entries.extend(entry['entries'])
+        else:
+            entries.append(entry)
+
+    for entry in entries:
         entry_date = entry['upload_date']
         # find the newest video release date
         if int(entry_date) > date_int:
